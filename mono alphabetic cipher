@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <string.h>
+
+#define ALPHABET_SIZE 26
+
+
+void caesar_encrypt(char *message, int key) 
+{
+    int i;
+    char ch;
+    for(i = 0; message[i] != '\0'; ++i) {
+        ch = message[i];
+        if(ch >= 'a' && ch <= 'z') {
+            ch = 'a' + (ch - 'a' + key) % ALPHABET_SIZE;
+        }
+        else if(ch >= 'A' && ch <= 'Z') {
+            ch = 'A' + (ch - 'A' + key) % ALPHABET_SIZE;
+        }
+        message[i] = ch;
+    }
+}
+
+
+void caesar_decrypt(char *message, int key) {
+
+    caesar_encrypt(message, ALPHABET_SIZE - key);
+}
+
+int main() {
+    char message[100];
+    int key, choice;
+
+    printf("Enter the message to encrypt/decrypt: ");
+    fgets(message, sizeof(message), stdin);
+
+    printf("Enter the value of key (1 to 25): ");
+    scanf("%d", &key);
+
+    printf("Enter 1 for encryption and 2 for decryption: ");
+    scanf("%d", &choice);
+
+    if(choice == 1) {
+        caesar_encrypt(message, key);
+        printf("Encrypted message: %s\n", message);
+    }
+    else if(choice == 2) {
+        caesar_decrypt(message, key);
+        printf("Decrypted message: %s\n", message);
+    }
+    else {
+        printf("Invalid choice!\n");
+    }
+
+    return 0;
+}
+
+
+
+
+output:Enter the message to encrypt/decrypt: shivani
+Enter the value of key (1 to 25): 4
+Enter 1 for encryption and 2 for decryption: 1
+Encrypted message: wlmzerm
